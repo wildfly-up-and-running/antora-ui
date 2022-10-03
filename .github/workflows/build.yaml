@@ -1,0 +1,22 @@
+name: Build and publish UI
+on: [push]
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: npm install
+        run: |
+          npm install
+
+      - name: package the UI
+        run: |
+          gulp pack
+
+      - name: Publish UI artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: ui-bundle.zip
+          path: build/ui-bundle.zip
